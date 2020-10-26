@@ -1,0 +1,14 @@
+title: email
+type: object
+x-tags:
+  - Common
+description: 'Model for email. Email model have fields for subject, message, to and bcc.'
+properties:
+  subject:
+    type: string
+  message:
+    type: string
+  to:
+    type: string
+  bcc:
+    type: string

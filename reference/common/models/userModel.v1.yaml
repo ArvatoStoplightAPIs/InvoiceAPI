@@ -1,0 +1,10 @@
+title: User
+type: object
+x-tags:
+  - Common
+properties:
+  name:
+    type: string
+  email:
+    type: string
+description: ''

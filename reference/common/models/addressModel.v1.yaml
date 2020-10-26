@@ -1,0 +1,23 @@
+title: address
+type: object
+x-tags:
+  - Common
+description: Model containing address information.
+properties:
+  street:
+    type: string
+  housenumber:
+    type: string
+  housenumberPrefix:
+    type: string
+  postalCode:
+    type: string
+  city:
+    type: string
+  country:
+    type: string
+  type:
+    type: string
+    enum:
+      - delivery
+      - invoice

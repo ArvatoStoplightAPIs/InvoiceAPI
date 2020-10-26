@@ -1,0 +1,16 @@
+title: customerModel
+type: object
+properties:
+  id:
+    type: string
+  customerNumber:
+    type: string
+  firstname:
+    type: string
+  lastname:
+    type: string
+  email:
+    type: string
+    format: email
+required:
+  - id

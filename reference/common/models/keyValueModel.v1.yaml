@@ -1,0 +1,8 @@
+title: keyValueModel
+type: object
+description: Model for key and value.
+properties:
+  key:
+    type: string
+  value:
+    type: string

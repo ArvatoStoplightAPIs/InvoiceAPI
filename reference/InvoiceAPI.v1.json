@@ -1,0 +1,823 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "InvoiceAPI",
+    "version": "1.0",
+    "contact": {
+      "name": "Arvato Financial Solutions",
+      "url": "www.arvato.com",
+      "email": "post@arvato.com"
+    },
+    "license": {
+      "name": "MIT"
+    },
+    "description": "API for fetching, updating, creating and executing actions for invoices and related customers."
+  },
+  "servers": [
+    {
+      "url": "https://invoiceapi-dev.horizonafs.io"
+    }
+  ],
+  "paths": {
+    "/v1/invoices": {
+      "get": {
+        "summary": "Search or list all invoices",
+        "tags": [
+          "Invoices"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response with a list of invoices for a given searchcriteria.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/listInvoiceResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request response is given when some of the inputdata is incorrect. \nAn Error response is returned."
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "500": {
+            "description": "500 - Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "operationId": "searchInvoices",
+        "description": "This invoices endpoint searching invoices with a given search parameters within a clent. The endpoint returns a list of invoices.\n\nOne parameter parameter is mandatory.\n",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "orderNumber",
+            "description": "Parameter for searching invoices with a given order number."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "customerNumber",
+            "description": "Parameter for searching invoices for a given customer number."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "email",
+            "description": "Parameter for searching invoices for a given customer email address."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ssn",
+            "description": "Parameter for searching invoices for a given customers social security number."
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "showOpenInvoices",
+            "description": "Parameter for searching invoices that has open balance."
+          }
+        ],
+        "security": [
+          {
+            "BorderPatrol": [
+              "invoice:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/invoices/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieve an invoice",
+        "tags": [
+          "Invoices"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response with a invoice for a given invoice number.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getInvoiceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "404": {
+            "description": "404 - Not Found is returned when invoice is not found for given invoiceNo."
+          },
+          "500": {
+            "description": "Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "operationId": "getInvoice",
+        "description": "This endpoint retrieves a specific invoice for a given id. The id is the invoiceNumber.\n",
+        "security": [
+          {
+            "BorderPatrol": [
+              "invoice:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/invoices/{id}/postpone": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "patch": {
+        "summary": "Postpone a invoice",
+        "operationId": "postponeInvoice",
+        "responses": {
+          "200": {
+            "description": "OK response when postpone is successfully updated with the updated invoice."
+          },
+          "400": {
+            "description": "Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "404": {
+            "description": "Not Found is returned when invoice is not found for given invoiceNumber."
+          },
+          "500": {
+            "description": "Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "description": "Endpoint for postpone the invoice by a number of days.\nInput parameters are the new date and a freetext for reason that is added to the communication note for the invoice.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postponeInvoiceRequest"
+              }
+            }
+          },
+          "description": "Request body with date and reason for the postpone."
+        },
+        "tags": [
+          "Invoices"
+        ]
+      }
+    },
+    "/v1/invoices/{id}/messages": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "List communication messages for a invoice between client and Arvato",
+        "tags": [
+          "Invoices"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response with a list of invoice messages for a given invoice number.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listInvoiceMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "500": {
+            "description": "Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "operationId": "listInvoiceCommunication",
+        "description": "List all communications between client and Arvato.",
+        "security": [
+          {
+            "BorderPatrol": [
+              "communication:read"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add message for a invoice to communicate between client and Arvato",
+        "operationId": "addInvoiceCommunication",
+        "responses": {
+          "201": {
+            "description": "Created response when note is successfully created."
+          },
+          "400": {
+            "description": "Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "500": {
+            "description": "Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "security": [
+          {
+            "BorderPatrol": [
+              "communication:create"
+            ]
+          }
+        ],
+        "description": "Add new message to communicate between client and Arvato.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createInvoiceMessageRequest"
+              }
+            }
+          },
+          "description": "Request body for creating a communication note."
+        },
+        "tags": [
+          "Invoices"
+        ]
+      }
+    },
+    "/v1/invoices/{id}/resend": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Resend an invoice",
+        "operationId": "sendEmail",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "500": {
+            "description": "Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "security": [
+          {
+            "BorderPatrol": []
+          }
+        ],
+        "description": "Endpoint for resending the invoice to the customer.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resendInvoiceRequest"
+              }
+            }
+          },
+          "description": "Request body for resending and invoice."
+        },
+        "tags": [
+          "Invoices"
+        ]
+      }
+    },
+    "/v1/invoices/{id}/credit": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Credit an Invoice",
+        "operationId": "creditInvoice",
+        "responses": {
+          "201": {
+            "description": "Created response when credit for the invoice is successfully created."
+          },
+          "400": {
+            "description": "Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "404": {
+            "description": "Not Found response returned when invoice not found."
+          },
+          "500": {
+            "description": "Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "description": "Endpoint for credit an invoice.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/creditInvoiceRequest"
+                }
+              }
+            }
+          },
+          "description": "Request body for credit an invoice."
+        },
+        "tags": [
+          "Invoices"
+        ]
+      }
+    },
+    "/v1/invoices/{id}/activities": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "Create activity for an invoice",
+        "operationId": "createFollowup",
+        "responses": {
+          "201": {
+            "description": "Created response when followup activity is successfully updated."
+          },
+          "400": {
+            "description": "400 - Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "401 - Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "403 - Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "404": {
+            "description": "404 - Not Found response returned when invoice not found."
+          },
+          "500": {
+            "description": "500 - Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "description": "Endpoint for creating a followup activity related to the invoice.\nThis endoint need to be finalized with input parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createInvoiceActivityRequest"
+              }
+            }
+          },
+          "description": "Request for creating a followup activity for given invoice."
+        },
+        "tags": [
+          "Invoices"
+        ]
+      }
+    },
+    "/v1/invoices/{id}/transactions": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get Transactions for an invoice",
+        "tags": [
+          "Invoices"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 - OK response with list of transactions related to an invoice.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/getInvoiceTransactionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 - Bad Request when input data is not valid."
+          },
+          "401": {
+            "description": "401 - Unauthorized when user is not authenticated with a valid token from Auth0."
+          },
+          "403": {
+            "description": "403 - Forbidden is return when user does not have authorization to the Resource (scope) or the client."
+          },
+          "404": {
+            "description": "404 - Not Found response returned when invoice not found."
+          },
+          "500": {
+            "description": "500 - Internal Server Error is returned when unhandled errors occurs."
+          }
+        },
+        "operationId": "getTransactions",
+        "description": "Endpoint for listing all transactions for a invoice."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "postponeInvoiceRequest": {
+        "title": "postponeInvoiceRequest",
+        "type": "object",
+        "description": "Model for updating due date for a invoice.\nNew date and a reason that will be added to the invoice communication note.",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Date for when the invoice will be postponed.",
+            "format": "date"
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "date"
+        ]
+      },
+      "resendInvoiceRequest": {
+        "title": "resendInvoiceRequest",
+        "type": "object",
+        "description": "Request for resending an invoice.\nResend type is an enumeration of email and letter.",
+        "properties": {
+          "resendType": {
+            "type": "string",
+            "enum": [
+              "default",
+              "email",
+              "letter"
+            ]
+          }
+        }
+      },
+      "listInvoiceMessageResponse": {
+        "title": "listInvoiceMessageResponse",
+        "type": "object",
+        "description": "Model for listing communication notes for a invoice.",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "achnowledgeBy": {
+            "$ref": "./common/models/userModel.v1.yaml"
+          }
+        }
+      },
+      "createInvoiceMessageRequest": {
+        "title": "createInvoiceMessageRequest",
+        "type": "object",
+        "description": "Requst for creating an invoice message.",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "creditInvoiceRequest": {
+        "title": "creditInvoiceRequest",
+        "type": "object",
+        "description": "Request for credit an invoice.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "grossAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "netAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "vatAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "productDescription": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "listInvoiceResponse": {
+        "title": "listInvoiceResponse",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "remainingAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "isClosed": {
+            "type": "string"
+          },
+          "ocr": {
+            "type": "string"
+          }
+        }
+      },
+      "getInvoiceResponse": {
+        "title": "getInvoiceResponse",
+        "type": "object",
+        "description": "Response for invoice details.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "invoiceNumber": {
+            "type": "string"
+          },
+          "orderId": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "totalAmount": {
+            "type": "string"
+          },
+          "remainingAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "currencyAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "remainingCurrencyAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "isBought": {
+            "type": "boolean"
+          },
+          "isClosed": {
+            "type": "boolean"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "invoiceDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "nextEvent": {
+            "type": "string"
+          },
+          "nextEventDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "ourRef": {
+            "type": "string"
+          },
+          "yourRef": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "./invoices/invoicelineModel.v1.yaml"
+            }
+          },
+          "customers": {
+            "$ref": "./customers/customerModel.v1.yaml"
+          }
+        }
+      },
+      "getInvoiceTransactionResponse": {
+        "title": "getInvoiceTransactionResponse",
+        "type": "object",
+        "description": "Response for listing all transactions as payments, credits and interest notes for an invoice.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "remainingAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "totalCurrencyAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "remainingCurrencyAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "eventDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "isClosed": {
+            "type": "boolean"
+          },
+          "isBought": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "createInvoiceActivityRequest": {
+        "title": "createInvoiceActivityRequest",
+        "type": "object",
+        "properties": {
+          "activityType": {
+            "type": "string"
+          }
+        },
+        "description": "Request for create an activity."
+      }
+    },
+    "securitySchemes": {
+      "Auth0": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "",
+            "refreshUrl": "",
+            "scopes": {
+              "invoice:access": "Scope that gives permissions to access the InvoicingAPI."
+            }
+          }
+        },
+        "description": "Accessing the API is only allowed when having a valid Auth0 token."
+      },
+      "BorderPatrol": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "",
+            "tokenUrl": "",
+            "refreshUrl": "",
+            "scopes": {
+              "invoice:read": "",
+              "invoice:update": "Scope that gives permissions to update invoices.",
+              "invoice:create": "Scope that gives permissions to read invoices.",
+              "communication:read": "Scope that gives permissions to read communication.",
+              "communication:create": "Scope that gives permissions to create communication.",
+              "email:read": "Scope that gives permissions to read email.",
+              "email:create": "Scope that gives permission to create or send emai."
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Invoices"
+    }
+  ],
+  "security": [
+    {
+      "Auth0": [
+        "invoice:access"
+      ]
+    }
+  ]
+}
