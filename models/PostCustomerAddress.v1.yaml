@@ -1,0 +1,27 @@
+title: PostCustomerAddress
+type: object
+x-tags:
+  - Customers
+properties:
+  AddressLine1:
+    type: string
+    description: Address street 1
+  AddressLine2:
+    type: string
+    description: Address street 2 - used when one is not enought
+  AddressLine3:
+    type: string
+    description: Address street 3 - used when the world is not enough
+  ZipCode:
+    type: string
+    description: Postal code or Zip code
+  City:
+    type: string
+    description: City
+  CountryCode:
+    type: string
+    description: 2 letter ISO code
+required:
+  - ZipCode
+  - City
+  - CountryCode

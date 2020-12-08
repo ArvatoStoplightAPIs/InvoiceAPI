@@ -8,8 +8,6 @@ properties:
     type: string
   housenumber:
     type: string
-  housenumberPrefix:
-    type: string
   postalCode:
     type: string
   city:
@@ -21,3 +19,7 @@ properties:
     enum:
       - delivery
       - invoice
+required:
+  - postalCode
+  - city
+  - country

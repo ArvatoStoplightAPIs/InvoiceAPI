@@ -1,0 +1,26 @@
+title: Fees
+type: object
+x-tags:
+  - Invoices
+properties:
+  id:
+    type: string
+  Type:
+    type: string
+    description: 'InvoiceFee (not incl. as an invoice item), Reminderfee, CreditAccountFee'
+  GrossAmount:
+    type: string
+  Balance:
+    type: string
+  Currency:
+    type: string
+  Taxes:
+    type: string
+  Description:
+    type: string
+required:
+  - Type
+  - GrossAmount
+  - Balance
+  - Currency
+  - Taxes

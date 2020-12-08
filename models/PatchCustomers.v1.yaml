@@ -1,0 +1,33 @@
+title: PatchCustomers
+type: object
+x-tags:
+  - Customers
+properties:
+  id:
+    type: string
+    description: CustomerId used to identify the customer.
+  FirstName:
+    type: string
+    description: Not used for B2B customers
+  LastName:
+    type: string
+    description: ''
+  eMail:
+    type: string
+  PhoneNumber:
+    type: string
+  Type:
+    type: string
+    description: Set to either "Company" or "Person"
+  SSN:
+    type: string
+    description: Only used for Type "Person"
+  Organization_number:
+    type: string
+    description: Only used for Type "Company"
+  Address:
+    $ref: ./PostCustomerAddress.v1.yaml
+required:
+  - id
+  - LastName
+  - Type

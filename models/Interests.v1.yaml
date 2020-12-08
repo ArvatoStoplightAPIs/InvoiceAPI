@@ -1,0 +1,16 @@
+title: Interests
+type: object
+x-tags:
+  - Invoices
+description: 'Interest - If you''re invoice has accumulated interest '
+properties:
+  InterestPercentage:
+    type: number
+  AccumulatedInterests:
+    type: number
+  InterestCalculatedToDate:
+    type: string
+required:
+  - InterestPercentage
+  - AccumulatedInterests
+  - InterestCalculatedToDate

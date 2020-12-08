@@ -1,0 +1,21 @@
+title: PostPayment
+type: object
+x-tags:
+  - Invoices
+properties:
+  PaidAmount:
+    type: number
+  PaidDate:
+    type: string
+  Metadata:
+    type: array
+    items: {}
+  Message:
+    type: string
+  Currency:
+    type: string
+    description: 3 letter ISO code
+required:
+  - PaidAmount
+  - PaidDate
+  - Currency

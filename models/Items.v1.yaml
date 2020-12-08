@@ -1,0 +1,39 @@
+title: Items
+type: object
+x-tags:
+  - Invoices
+properties:
+  LineNumber:
+    type: integer
+    description: The sequence of which the item should be displayed in documents
+  Description:
+    type: string
+  ProductId:
+    type: string
+  ImageUrl:
+    type: string
+  UnitePrice:
+    type: string
+  UnitCode:
+    type: string
+  DiscountPercentage:
+    type: string
+  Quantity:
+    type: string
+  TaxPercentage:
+    type: string
+  TaxAmount:
+    type: string
+  NetAmount:
+    type: string
+  GrossAmount:
+    type: string
+required:
+  - LineNumber
+  - Description
+  - UnitePrice
+  - Quantity
+  - TaxPercentage
+  - TaxAmount
+  - NetAmount
+  - GrossAmount

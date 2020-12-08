@@ -42,33 +42,89 @@
           }
         },
         "operationId": "searchCustomer",
-        "description": "This customer search endpoint allows you to search for customers with search parameters.\nThe endpoint return a list of customers matching the search criteria. The result can be a list of 0 to many items.\nThis customers endpoint search a customer with a given search parameters. The endpoint returns a list of customers.\nSearch parameters can be:\nCustomerName\nCustomerEmailAddress\nSocialSecurityNumber",
+        "description": "This customer search endpoint allows you to search for customers with search parameters.\nThe endpoint return a list of customers matching the search criteria. The result can be a list of 0 to many items.\nThis customers endpoint search a customer with a given search parameters. The endpoint returns a list of customers.\nSearch parameters can be:\nCustomerFullName\neMail\nSSN\nOrganization_Number\nPhoneNumber\n",
         "parameters": [
           {
             "schema": {
               "type": "string"
             },
             "in": "query",
-            "name": "customerName"
+            "name": "eMail",
+            "description": "Customer eMail address"
           },
           {
             "schema": {
               "type": "string"
             },
             "in": "query",
-            "name": "email"
+            "name": "SSN",
+            "description": "Customer Social security number used for customer type \"Person\""
           },
           {
             "schema": {
               "type": "string"
             },
             "in": "query",
-            "name": "socialSecurityNumber"
+            "name": "Organization_number",
+            "description": "Customer organization number used for customer type \"Company\""
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "PhoneNumber",
+            "description": "Customer Phone number"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "CustomerFullName",
+            "description": "The customers full name"
           }
         ],
         "tags": [
           "Customers"
         ]
+      },
+      "post": {
+        "summary": "",
+        "operationId": "post-v1-customers",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Post customers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../models/PostCustomers.v1.yaml"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "",
+        "operationId": "patch-v1-customers",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../models/PatchCustomers.v1.yaml"
+              }
+            }
+          }
+        }
       }
     },
     "/v1/customers/{id}": {
@@ -120,13 +176,10 @@
   "components": {
     "schemas": {
       "getCustomerResponse": {
-        "title": "getCustomerResponse",
+        "title": "GetCustomersResponse",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
-          },
-          "customerNumber": {
             "type": "string"
           },
           "firstname": {
@@ -135,32 +188,51 @@
           "lastname": {
             "type": "string"
           },
-          "email": {
+          "eMail": {
             "type": "string",
             "format": "email"
           },
-          "phone": {
+          "PhoneNumber": {
             "type": "string"
           },
-          "address": {
-            "type": "array",
-            "items": {
-              "$ref": "./common/models/addressModel.v1.yaml"
-            }
+          "Type": {
+            "type": "string"
+          },
+          "Organization_number": {
+            "type": "string"
+          },
+          "Address": {
+            "$ref": "../models/PostCustomerAddress.v1.yaml"
           }
-        }
+        },
+        "required": [
+          "id",
+          "lastname"
+        ]
       },
       "listCustomerResponse": {
-        "title": "listCustomerResponse",
+        "title": "GetCustomersResponse",
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "FirstName": {
             "type": "string"
           },
-          "email": {
+          "LastName": {
+            "type": "string"
+          },
+          "eMail": {
+            "type": "string"
+          },
+          "PhoneNumber": {
+            "type": "string"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "City": {
             "type": "string"
           }
         }

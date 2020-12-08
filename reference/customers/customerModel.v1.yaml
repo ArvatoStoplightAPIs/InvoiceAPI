@@ -3,8 +3,6 @@ type: object
 properties:
   id:
     type: string
-  customerNumber:
-    type: string
   firstname:
     type: string
   lastname:
@@ -12,5 +10,9 @@ properties:
   email:
     type: string
     format: email
+  ParentCustomerId:
+    type: string
+  Address:
+    $ref: ../common/models/addressModel.v1.yaml
 required:
   - id

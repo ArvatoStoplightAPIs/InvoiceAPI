@@ -1,0 +1,29 @@
+title: Attachment
+type: object
+x-tags:
+  - Invoices
+properties:
+  id:
+    type: string
+    description: Unique identifier for the document
+  Name:
+    type: string
+    description: 'Name of the document, for example "Invoice", "pricelist", "timelist"'
+  Description:
+    type: string
+    description: Description of the document
+  CreatedTimeStamp:
+    type: string
+    description: The original time the document was created
+  DocumentUrl:
+    type: string
+    description: The url where Arvato could download the document
+  Type:
+    type: string
+    description: 'Document type: PDF, csv, txt'
+required:
+  - id
+  - Name
+  - CreatedTimeStamp
+  - DocumentUrl
+  - Type
