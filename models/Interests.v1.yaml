@@ -4,13 +4,19 @@ x-tags:
   - Invoices
 description: 'Interest - If you''re invoice has accumulated interest '
 properties:
-  InterestPercentage:
-    type: number
-  AccumulatedInterests:
-    type: number
-  InterestCalculatedToDate:
+  Type:
+    type: string
+    description: 'Types: Fixed, preference or above reference'
+  FromDate:
+    type: string
+  Percentage:
+    type: string
+  Amount:
+    type: string
+  ToDate:
     type: string
 required:
-  - InterestPercentage
-  - AccumulatedInterests
-  - InterestCalculatedToDate
+  - Type
+  - Percentage
+  - Amount
+  - ToDate

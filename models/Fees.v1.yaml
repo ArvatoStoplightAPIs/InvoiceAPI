@@ -18,9 +18,13 @@ properties:
     type: string
   Description:
     type: string
+  Date:
+    type: string
 required:
   - Type
   - GrossAmount
   - Balance
   - Currency
   - Taxes
+  - Description
+  - Date

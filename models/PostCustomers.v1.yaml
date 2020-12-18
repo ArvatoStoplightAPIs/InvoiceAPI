@@ -3,7 +3,7 @@ type: object
 x-tags:
   - Customers
 properties:
-  id:
+  Id:
     type: string
     description: CustomerId used to identify the customer. If not set the CustomerId will be provided by Arvato
   FirstName:
@@ -22,7 +22,7 @@ properties:
   SSN:
     type: string
     description: Only used for Type "Person"
-  Organization_number:
+  OrganizationNumber:
     type: string
     description: Only used for Type "Company"
   Address:
