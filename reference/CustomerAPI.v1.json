@@ -16,14 +16,45 @@
         "summary": "Search customers",
         "responses": {
           "200": {
-            "description": "OK response with a list of invoices for a given searchcriteria.",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/listCustomerResponse"
+                    "$ref": "#/components/schemas/getCustomerResponse"
                   }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "eMail": {
+                      "type": "string"
+                    },
+                    "ssn": {
+                      "type": "string"
+                    },
+                    "organizationNumber": {
+                      "type": "string"
+                    },
+                    "phoneNumber": {
+                      "type": "string"
+                    },
+                    "customerFullName": {
+                      "type": "string"
+                    },
+                    "listCustomerNumbers": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
                 }
               }
             }
@@ -42,49 +73,8 @@
           }
         },
         "operationId": "searchCustomer",
-        "description": "This customer search endpoint allows you to search for customers with search parameters.\nThe endpoint return a list of customers matching the search criteria. The result can be a list of 0 to many items.\nThis customers endpoint search a customer with a given search parameters. The endpoint returns a list of customers.\nSearch parameters can be:\nCustomerFullName\neMail\nSSN\nOrganization_Number\nPhoneNumber\n",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "eMail",
-            "description": "Customer eMail address"
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "SSN",
-            "description": "Customer Social security number used for customer type \"Person\""
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "Organization_number",
-            "description": "Customer organization number used for customer type \"Company\""
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "PhoneNumber",
-            "description": "Customer Phone number"
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "CustomerFullName",
-            "description": "The customers full name"
-          }
-        ],
+        "description": "Get a specific customer",
+        "parameters": [],
         "tags": [
           "Customers"
         ]
@@ -94,7 +84,32 @@
         "operationId": "post-v1-customers",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCustomerResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "description": "Post customers",
@@ -125,29 +140,61 @@
             }
           }
         }
-      }
-    },
-    "/v1/customers/{id}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Get customer",
-        "tags": [],
+      },
+      "parameters": [],
+      "put": {
+        "summary": "",
+        "operationId": "put-v1-customers",
         "responses": {
           "200": {
-            "description": "200 - OK response with customer details.",
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/getCustomerResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../models/PostCustomers.v1.yaml"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/customers/list": {
+      "post": {
+        "summary": "List customers",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "200 - ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listCustomerResponse"
                 }
               }
             }
@@ -161,15 +208,38 @@
           "403": {
             "description": "403 - Forbidden is return when user does not have authorization to the Resource (scope) or the client."
           },
-          "404": {
-            "description": "404 - Not Found is returned when invoice is not found for given invoiceNo."
-          },
           "500": {
             "description": "500 - Internal Server Error is returned when unhandled errors occurs."
           }
         },
-        "operationId": "getCustomer",
-        "description": "Endpoint for fetching customer details."
+        "operationId": "post-v1-customers-list",
+        "description": "This customer search endpoint allows you to search for customers with search parameters.\nThe endpoint return a list of customers matching the search criteria. The result can be a list of 0 to many items.\nThis customers endpoint search a customer with a given search parameters. The endpoint returns a list of customers.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eMail": {
+                    "type": "string"
+                  },
+                  "ssn": {
+                    "type": "string"
+                  },
+                  "customerFullName": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "organizationNumber": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -192,17 +262,20 @@
             "type": "string",
             "format": "email"
           },
-          "PhoneNumber": {
+          "phoneNumber": {
             "type": "string"
           },
-          "Type": {
+          "type": {
             "type": "string"
           },
-          "Organization_number": {
+          "organizationNumber": {
             "type": "string"
           },
-          "Address": {
+          "address": {
             "$ref": "../models/PostCustomerAddress.v1.yaml"
+          },
+          "language": {
+            "type": "string"
           }
         },
         "required": [
@@ -217,22 +290,22 @@
           "id": {
             "type": "string"
           },
-          "FirstName": {
+          "firstName": {
             "type": "string"
           },
-          "LastName": {
+          "lastName": {
             "type": "string"
           },
           "eMail": {
             "type": "string"
           },
-          "PhoneNumber": {
+          "phoneNumber": {
             "type": "string"
           },
-          "Type": {
+          "type": {
             "type": "string"
           },
-          "City": {
+          "city": {
             "type": "string"
           }
         }

@@ -6,7 +6,7 @@ description: Model containing address information.
 properties:
   street:
     type: string
-  housenumber:
+  houseNumber:
     type: string
   postalCode:
     type: string

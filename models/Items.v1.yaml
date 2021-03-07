@@ -3,37 +3,46 @@ type: object
 x-tags:
   - Invoices
 properties:
-  LineNumber:
+  lineNumber:
     type: integer
     description: The sequence of which the item should be displayed in documents
-  Description:
+  description:
     type: string
-  ProductId:
+    description: Whats been bought
+  productId:
     type: string
-  ImageUrl:
+    description: Your product id
+  imageUrl:
     type: string
-  UnitePrice:
+    description: give an image of the goods or services
+  unitePrice:
     type: string
-  UnitCode:
+    description: net unite price
+  unitCode:
     type: string
-  DiscountPercentage:
+    description: 'What kind of unit has been consumed. Available: hour, pcs, kilo, hectare'
+  discountPercentage:
     type: string
-  Quantity:
+  quantity:
     type: string
-  TaxPercentage:
+    description: The number of quantities. You should be able to add unit price with quantity to get netAmount
+  taxPercentage:
     type: string
   TaxAmount:
     type: string
-  NetAmount:
+  netAmount:
     type: string
-  GrossAmount:
+  grossAmount:
     type: string
+    description: unitePrice-discount * quanitity * taxes = grossAmount
+  transactionReference:
+    type: string
+    description: Reference unique to this sales item
 required:
-  - LineNumber
-  - Description
-  - UnitePrice
-  - Quantity
-  - TaxPercentage
+  - description
+  - unitePrice
+  - quantity
+  - taxPercentage
   - TaxAmount
-  - NetAmount
-  - GrossAmount
+  - netAmount
+  - grossAmount

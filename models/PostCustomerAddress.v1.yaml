@@ -3,25 +3,25 @@ type: object
 x-tags:
   - Customers
 properties:
-  AddressLine1:
+  addressLine1:
     type: string
     description: Address street 1
-  AddressLine2:
+  addressLine2:
     type: string
     description: Address street 2 - used when one is not enought
-  AddressLine3:
+  addressLine3:
     type: string
     description: Address street 3 - used when the world is not enough
-  ZipCode:
+  zipCode:
     type: string
     description: Postal code or Zip code
-  City:
+  city:
     type: string
     description: City
-  CountryCode:
+  countryCode:
     type: string
     description: 2 letter ISO code
 required:
-  - ZipCode
-  - City
-  - CountryCode
+  - zipCode
+  - city
+  - countryCode

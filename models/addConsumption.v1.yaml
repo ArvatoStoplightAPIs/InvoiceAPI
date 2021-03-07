@@ -1,0 +1,21 @@
+title: addConsumption
+type: object
+properties:
+  customerId:
+    type: string
+  items:
+    $ref: ./Items.v1.yaml
+  poReference:
+    type: string
+    description: Purchase order reference
+  yourRef:
+    type: string
+    description: The buyers reference
+  ourRef:
+    type: string
+    description: The sellers reference
+  parentTransactionId:
+    type: string
+    description: unique reference to the consumption
+  delivaryAddress:
+    $ref: ../reference/common/models/addressModel.v1.yaml

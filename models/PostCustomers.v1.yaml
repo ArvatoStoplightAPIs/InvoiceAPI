@@ -3,33 +3,34 @@ type: object
 x-tags:
   - Customers
 properties:
-  Id:
+  id:
     type: string
     description: CustomerId used to identify the customer. If not set the CustomerId will be provided by Arvato
-  FirstName:
+  firstName:
     type: string
     description: Not used for B2B customers
-  LastName:
+  lastName:
     type: string
     description: ''
   eMail:
     type: string
-  PhoneNumber:
+  phoneNumber:
     type: string
-  Type:
+  type:
     type: string
     description: Set to either "Company" or "Person"
-  SSN:
+  ssn:
     type: string
-    description: Only used for Type "Person"
-  OrganizationNumber:
+    description: Only used for Type "Person" - Mandatory for Type "Person"
+  organizationNumber:
     type: string
-    description: Only used for Type "Company"
-  Address:
+    description: Only used for Type "Company" - Mandatory for type "Company"
+  address:
     $ref: ./PostCustomerAddress.v1.yaml
-  Language:
+  language:
     type: string
     description: 2 letter iso code
 required:
-  - LastName
-  - Type
+  - id
+  - lastName
+  - type
