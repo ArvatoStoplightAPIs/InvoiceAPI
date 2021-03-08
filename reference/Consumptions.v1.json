@@ -22,11 +22,11 @@
         }
       ],
       "get": {
-        "summary": "Get User Info by User ID",
+        "summary": "Consumptions",
         "tags": [],
         "responses": {
           "200": {
-            "description": "User Found",
+            "description": "200 - ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -53,7 +53,7 @@
           }
         },
         "operationId": "get-users-userId",
-        "description": "Retrieve the information of the user with the matching user ID."
+        "description": "Retrieve a specific consumption"
       },
       "patch": {
         "summary": "Update User Information",
@@ -89,27 +89,12 @@
             "description": "Email Already Taken"
           }
         },
-        "description": "Update the infromation of an existing user.",
+        "description": "",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "firstName": {
-                    "type": "string"
-                  },
-                  "lastName": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "description": "If a new email is given, the user's email verified property will be set to false."
-                  },
-                  "dateOfBirth": {
-                    "type": "string"
-                  }
-                }
+                "type": "object"
               },
               "examples": {
                 "Update First Name": {
@@ -131,7 +116,7 @@
               }
             }
           },
-          "description": "Patch user properties to update."
+          "description": ""
         }
       },
       "post": {
@@ -172,83 +157,35 @@
         }
       }
     },
-    "/user": {
+    "/consumptions": {
       "post": {
-        "summary": "Create New User",
-        "operationId": "post-user",
-        "responses": {
-          "200": {
-            "description": "User Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                },
-                "examples": {
-                  "New User Bob Fellow": {
-                    "value": {
-                      "id": 12,
-                      "firstName": "Bob",
-                      "lastName": "Fellow",
-                      "email": "bob.fellow@gmail.com",
-                      "dateOfBirth": "1996-08-24",
-                      "emailVerified": false,
-                      "createDate": "2020-11-18"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Missing Required Information"
-          },
-          "409": {
-            "description": "Email Already Taken"
-          }
-        },
+        "summary": "List consumptions",
+        "tags": [],
+        "responses": {},
+        "operationId": "post-consumptions",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "firstName": {
-                    "type": "string"
-                  },
-                  "lastName": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "dateOfBirth": {
+                  "id": {
                     "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "firstName",
-                  "lastName",
-                  "email",
-                  "dateOfBirth"
-                ]
-              },
-              "examples": {
-                "Create User Bob Fellow": {
-                  "value": {
-                    "firstName": "Bob",
-                    "lastName": "Fellow",
-                    "email": "bob.fellow@gmail.com",
-                    "dateOfBirth": "1996-08-24"
+                    "description": "An array of consumption id's you want to list"
+                  },
+                  "customerId": {
+                    "type": "string",
+                    "description": "Retreive all consumptions on a given customer"
+                  },
+                  "subscriptionId": {
+                    "type": "string",
+                    "description": "Search on a subscription id"
                   }
                 }
               }
             }
-          },
-          "description": "Post the necessary fields for the API to create a new user."
-        },
-        "description": "Create a new user."
+          }
+        }
       }
     }
   },

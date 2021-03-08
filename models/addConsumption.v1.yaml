@@ -17,5 +17,6 @@ properties:
   parentTransactionId:
     type: string
     description: unique reference to the consumption
-  delivaryAddress:
-    $ref: ../reference/common/models/addressModel.v1.yaml
+  subscriptionId:
+    type: string
+    description: The subscription of which the consumption should be added to. Must be a valid subscription
