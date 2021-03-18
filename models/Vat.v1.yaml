@@ -1,0 +1,7 @@
+title: Vat
+type: object
+properties:
+  id:
+    type: string
+  percentage:
+    type: string

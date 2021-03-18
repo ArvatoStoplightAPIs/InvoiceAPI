@@ -1,0 +1,12 @@
+title: taxes
+type: object
+properties:
+  id:
+    type: string
+    description: Vat category code used by the merchant
+  amount:
+    type: string
+    description: the total amount of Vat for one id and percentage incl. on the invoice
+  percentage:
+    type: string
+    description: 'Vat percentage '

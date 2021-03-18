@@ -1,0 +1,10 @@
+title: discounts
+type: object
+description: Allowance charges totals on the invoice pr. Vat ID and Vat percentage
+properties:
+  id:
+    type: string
+  amount:
+    type: number
+  vat:
+    $ref: ./Vat.v1.yaml

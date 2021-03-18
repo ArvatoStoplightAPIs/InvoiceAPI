@@ -142,12 +142,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "": {
-                    "$ref": "./common/models/PostInvoice.v1.yaml"
-                  }
-                }
+                "type": "object"
               }
             }
           }
@@ -166,7 +161,7 @@
         }
       ],
       "get": {
-        "summary": "Retrieve an invoice",
+        "summary": "Invoice",
         "tags": [
           "Invoices"
         ],
@@ -202,7 +197,41 @@
               "invoice:read"
             ]
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./common/models/PostInvoice.v1.yaml"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "",
+        "operationId": "post-v1-invoices-id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getInvoiceResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./common/models/PostInvoice.v1.yaml"
+              }
+            }
+          }
+        }
       }
     },
     "/v1/invoices/{id}/postpone": {

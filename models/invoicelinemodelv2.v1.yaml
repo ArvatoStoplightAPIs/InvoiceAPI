@@ -1,0 +1,28 @@
+title: invoicelinemodelv2
+type: object
+properties:
+  unitePrice:
+    type: string
+  quantity:
+    type: string
+  netAmount:
+    type: string
+  vat:
+    $ref: ./Vat.v1.yaml
+  AllowanceCharges:
+    $ref: ./discount.v1.yaml
+  description:
+    type: string
+    description: Description of the what the item relates to
+  productId:
+    type: string
+    description: The product id which the item refers to
+  imageUrl:
+    type: string
+    description: image of the goods or service rendered
+  lineNumber:
+    type: string
+    description: 'Hierarchy of which item to show first - if several items have equal number, a random hierarchy will be used on the once within equal line numbers'
+  transactionReference:
+    type: string
+    description: 'A unique reference to this item, which can be used for audits and trace'

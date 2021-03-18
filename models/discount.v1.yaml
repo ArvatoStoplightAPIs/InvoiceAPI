@@ -1,0 +1,10 @@
+title: AllowanceCharges
+type: object
+properties:
+  id:
+    type: string
+  vat:
+    $ref: ./Vat.v1.yaml
+  amount:
+    type: number
+description: Used for dicounts

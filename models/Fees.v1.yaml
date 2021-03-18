@@ -5,26 +5,26 @@ x-tags:
 properties:
   id:
     type: string
-  Type:
+  type:
     type: string
     description: 'InvoiceFee (not incl. as an invoice item), Reminderfee, CreditAccountFee'
-  GrossAmount:
+  grossAmount:
     type: string
-  Balance:
+  balance:
     type: string
-  Currency:
+  currency:
     type: string
-  Taxes:
+  vat:
+    $ref: ./Vat.v1.yaml
+  description:
     type: string
-  Description:
-    type: string
-  Date:
+  date:
     type: string
 required:
-  - Type
-  - GrossAmount
-  - Balance
-  - Currency
-  - Taxes
-  - Description
-  - Date
+  - type
+  - grossAmount
+  - balance
+  - currency
+  - vat
+  - description
+  - date
