@@ -1,0 +1,23 @@
+title: ConsumptionsResponse
+type: object
+properties:
+  customerId:
+    type: string
+  items:
+    $ref: ./invoicelinemodelv2.v1.yaml
+  poReference:
+    type: string
+  yourRef:
+    type: string
+  ourRef:
+    type: string
+  parentTransactionId:
+    type: string
+  subscriptionId:
+    type: string
+  status:
+    type: string
+    description: 'Possible values "invoiced", refunded"'
+  invoiceId:
+    type: string
+    description: 'If status "invoiced", this will return the invoiceId'

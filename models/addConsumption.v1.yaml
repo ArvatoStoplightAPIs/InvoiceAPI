@@ -4,7 +4,7 @@ properties:
   customerId:
     type: string
   items:
-    $ref: ./Items.v1.yaml
+    $ref: ./invoicelinemodelv2.v1.yaml
   poReference:
     type: string
     description: Purchase order reference

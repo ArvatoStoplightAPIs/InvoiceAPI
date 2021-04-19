@@ -1,0 +1,10 @@
+title: CustomerSubscriptionResponse
+type: object
+properties:
+  customerId:
+    type: string
+  total:
+    type: number
+    description: number of subscriptions
+  results:
+    $ref: ./subscriptions.v1.yaml

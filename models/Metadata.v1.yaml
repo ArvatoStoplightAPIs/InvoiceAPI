@@ -1,0 +1,6 @@
+title: Metadata
+type: object
+description: Give metadata with giving the object a "name" and a "value"
+properties:
+  name:
+    type: string

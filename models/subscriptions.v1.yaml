@@ -1,0 +1,14 @@
+title: subscriptions
+type: object
+properties:
+  subscriptionType:
+    type: string
+  items:
+    $ref: ./invoicelinemodelv2.v1.yaml
+  sequence:
+    type: string
+    description: Number of terms based
+  cancelled:
+    type: boolean
+  startTime:
+    type: string

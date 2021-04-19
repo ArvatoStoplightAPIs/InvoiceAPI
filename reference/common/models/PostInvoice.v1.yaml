@@ -28,9 +28,7 @@ properties:
   attachment:
     $ref: ../../../models/Attachment.v1.yaml
   metaData:
-    type: array
-    description: 'Metadata attributes which can be used in customer communication, document generation or reporting'
-    items: {}
+    $ref: ../../../models/Metadata.v1.yaml
   service:
     type: string
     description: 'Available services: Debt collection, Pre collection, ledger and payments, bookkeeping or Invoicing'

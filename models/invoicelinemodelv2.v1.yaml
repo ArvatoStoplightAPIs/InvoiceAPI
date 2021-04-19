@@ -26,3 +26,5 @@ properties:
   transactionReference:
     type: string
     description: 'A unique reference to this item, which can be used for audits and trace'
+  metadata:
+    $ref: ./Metadata.v1.yaml

@@ -1,0 +1,15 @@
+title: PostCustomerSubscription
+type: object
+properties:
+  customerId:
+    type: string
+  subscriptionType:
+    type: integer
+  metadata:
+    $ref: ./Metadata.v1.yaml
+  startTime:
+    type: string
+    description: 'if not given, default is instant'
+required:
+  - customerId
+  - subscriptionType

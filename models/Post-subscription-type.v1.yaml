@@ -1,0 +1,16 @@
+title: Post subscription type
+type: object
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  productId:
+    type: string
+  type:
+    type: string
+  items:
+    type: array
+    items: {}
+  '':
+    type: string
