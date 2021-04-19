@@ -19,136 +19,6 @@
     }
   ],
   "paths": {
-    "/v1/invoices": {
-      "get": {
-        "summary": "Search or list all invoices",
-        "tags": [
-          "Invoices"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK response with a list of invoices for a given searchcriteria.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/listInvoiceResponse"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request response is given when some of the inputdata is incorrect. \nAn Error response is returned."
-          },
-          "401": {
-            "description": "Unauthorized when user is not authenticated with a valid token from Auth0."
-          },
-          "403": {
-            "description": "Forbidden is return when user does not have authorization to the Resource (scope) or the client."
-          },
-          "500": {
-            "description": "500 - Internal Server Error is returned when unhandled errors occurs."
-          }
-        },
-        "operationId": "searchInvoices",
-        "description": "This invoices endpoint searching invoices with a given search parameters within a clent. The endpoint returns a list of invoices.\n\nOne parameter parameter is mandatory.\n",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "orderNumber",
-            "description": "Parameter for searching invoices with a given order number."
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "customerNumber",
-            "description": "Parameter for searching invoices for a given customer number."
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "email",
-            "description": "Parameter for searching invoices for a given customer email address."
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "ssn",
-            "description": "Parameter for searching invoices for a given customers social security number."
-          },
-          {
-            "schema": {
-              "type": "boolean"
-            },
-            "in": "query",
-            "name": "showOpenInvoices",
-            "description": "Parameter for searching invoices that has open balance."
-          }
-        ],
-        "security": [
-          {
-            "BorderPatrol": [
-              "invoice:read"
-            ]
-          }
-        ]
-      },
-      "post": {
-        "summary": "Post Invoice",
-        "tags": [
-          "Invoices"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getInvoiceResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "operationId": "post-v1-invoices",
-        "description": "Post a invoice",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/invoices/{id}": {
       "parameters": [
         {
@@ -161,7 +31,7 @@
         }
       ],
       "get": {
-        "summary": "Invoice",
+        "summary": "Invoices",
         "tags": [
           "Invoices"
         ],
