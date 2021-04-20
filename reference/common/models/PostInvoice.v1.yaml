@@ -35,10 +35,6 @@ properties:
   draft:
     type: boolean
     description: 'Attribute which defines whether or not the invoice is payable, of only a draft. If only a draft, set the attribute to true else false.'
-  fees:
-    $ref: ../../../models/Fees.v1.yaml
-  interests:
-    $ref: ../../../models/Interests.v1.yaml
   discounts:
     $ref: ../../../models/discounts.v1.yaml
 required:
