@@ -1,0 +1,21 @@
+title: Addendumresponse
+type: object
+properties:
+  addendumId:
+    type: integer
+  subscriptionId:
+    type: integer
+  numberOfTerms:
+    type: string
+  numberOfTermsRemaining:
+    type: string
+  vat:
+    $ref: ./taxes.v1.yaml
+  items:
+    $ref: ./invoicelinemodelv2.v1.yaml
+  metadata:
+    $ref: ./Metadata.v1.yaml
+  grossAmount:
+    type: string
+  currentBalance:
+    type: string

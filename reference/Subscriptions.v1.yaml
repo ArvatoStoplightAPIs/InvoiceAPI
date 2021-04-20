@@ -8,10 +8,10 @@ paths:
   '/subscriptions/customers/{id}':
     post:
       summary: Create New User
-      operationId: post-user
+      operationId: post-subscription
       responses:
         '200':
-          description: User Created
+          description: Subscription posted
           content:
             application/json:
               schema:
@@ -95,6 +95,59 @@ paths:
       tags: []
       responses: {}
       operationId: put-subscriptions-types
+  '/subscriptions/addendum/{id}':
+    post:
+      summary: Post a subscription addendum
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/Addendumresponse.v1.yaml
+      operationId: post-subscriptions-addendum
+      description: 'Use this to post a addendum for one or several terms in a subscription. This can for example be a discount, startup fee, or hardware purchased in connection with the subscription.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/SubscriptionAddendum.v1.yaml
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: ''
+      operationId: get-subscriptions-addendum-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/Addendumresponse.v1.yaml
+      description: Get addendum details
+  '/subscriptions/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get a subscription
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/subscriptions.v1.yaml
+      operationId: get-subscriptions-id
 components:
   schemas:
     User:

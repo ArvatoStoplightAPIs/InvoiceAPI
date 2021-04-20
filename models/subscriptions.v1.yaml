@@ -6,9 +6,13 @@ properties:
   items:
     $ref: ./invoicelinemodelv2.v1.yaml
   sequence:
-    type: string
     description: Number of terms based
+    type: integer
   cancelled:
     type: boolean
   startTime:
     type: string
+  subscriptionId:
+    type: integer
+  addendums:
+    $ref: ./Addendumresponse.v1.yaml

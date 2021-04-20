@@ -1,0 +1,16 @@
+title: SubscriptionAddendum
+type: object
+properties:
+  subscriptionId:
+    type: string
+  numberOfTerms:
+    type: string
+    description: 'how many subscription terms do the customer want to pay this on (Example 1,3,12 months)'
+  grossAmount:
+    type: string
+  vat:
+    $ref: ./taxes.v1.yaml
+  items:
+    $ref: ./invoicelinemodelv2.v1.yaml
+  metadata:
+    $ref: ./Metadata.v1.yaml
