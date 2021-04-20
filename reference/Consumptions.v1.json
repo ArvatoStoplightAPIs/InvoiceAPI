@@ -22,7 +22,7 @@
         }
       ],
       "get": {
-        "summary": "Consumptions",
+        "summary": "Get Consumptions",
         "tags": [],
         "responses": {
           "200": {
@@ -63,7 +63,7 @@
             "description": "User Not Found"
           }
         },
-        "operationId": "get-users-userId",
+        "operationId": "get-consumptions-id",
         "description": "Retrieve a specific consumption"
       },
       "patch": {
@@ -100,7 +100,7 @@
         }
       },
       "post": {
-        "summary": "",
+        "summary": "Post consumption",
         "operationId": "post-consumptions-id",
         "responses": {
           "200": {
